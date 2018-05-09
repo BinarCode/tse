@@ -1,0 +1,40 @@
+{
+  "name": "express-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist node_modules",
+    "start": "nodemon ./dist/server.js",
+    "watch": "NODE_ENV=dev nodemon --ext ts --watch src --exec './node_modules/.bin/ts-node' ./src/server.ts",
+    "dev": "ts-node ./src/server.ts",
+    "lint": "tsconfig-lint",
+    "prod": "npm run build && npm start"
+  },
+  "keywords": [
+    "express",
+    "typescript",
+    "node.js",
+    "async"
+  ],
+  "author": "lupacescueduard",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.11.1",
+    "@types/node": "^10.0.6",
+    "body-parser": "^1.18.2",
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "lodash": "^4.17.10",
+    "mongoose": "^5.0.17",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.4"
+  },
+  "devDependencies": {
+    "path": "^0.12.7",
+    "ts-node": "^6.0.3",
+    "tsconfig-lint": "^0.12.0",
+    "typescript": "^2.8.3"
+  }
+}
