@@ -4,11 +4,6 @@ import { ContactController } from '../controllers/ContactController';
 export class Contact {
     public contactController: ContactController = new ContactController();
     public init(app): void {
-        app.route('/')
-            .get((req: Request, res: Response) => {
-                console.log('request /');
-            });
-
         app.route('/contact')
             .get(this.contactController.getContacts)
             .post(this.contactController.store);
