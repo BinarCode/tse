@@ -50,27 +50,55 @@ you can clone it and start coding
 I. In `/src/http/middleware*` you can add your file with middleware here.
 Bellow we have an example of an empty middleware:
 ```javascript
-    export const auth = (req, res, next) => {
-        console.log('auth middle');
-    next(); ** DO NOT FORGET TO CALL next()
-  };
+export class Authenticate {
+    constructor () {
+    }
+
+    public handle(req, res, next) {
+        console.log('Authenticate middleware - check if is authenticated');
+        next();
+    }
+}
+
 ```
-II. Declare it in `middleware.ts`
+| ⌘ | The **handle** method is required!
+
+II. Declare it in `src/config/middleware.ts`
 ```typescript
-export const list = {
-    auth: auth
+export const routesMiddleware = {
+    auth: Authenticate,
+    session: StartSession
 };
 ```
 III. In the `Route` definition, just add the key of the middleware, like this:
 ```typescript
-     this.Route.group({
+     this.router.group({
             middleware: 'auth'
         }, (router) => {
+```
+Or you can use an array of middlewares: 
+```typescript
+middleware: ['auth', 'session']
+```
+IV. Also you can define these two middlewares in a middleware group:
+``` 
+export const groupsMiddleware = {
+    web: [
+        StartSession,
+        Authenticate
+    ]
+};
+```
+And use it like: 
+``` this.router.group({
+       prefix: 'group',
+       middleware: ['web']
+ }, r => {
 ```
 ## Use [express router](https://expressjs.com/en/guide/routing.html) as default
 - In your [route definition](https://github.com/binaryk/node-ts-boilerplate/blob/master/src/routes/Contact.ts) just use it through `this.Route`:
 ```typescript
- this.Route.get('/sample', (req, res, next) => {
+ this.router.get('/sample', (req, res, next) => {
             res.json({
                 'data': 'test'
             });

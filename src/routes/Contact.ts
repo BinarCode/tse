@@ -1,24 +1,22 @@
-import { ContactController } from '../controllers/ContactController';
-import { BaseRoute } from './BaseRoute';
-import { IRoute } from './IRoute';
+import {ContactController} from '../controllers/ContactController';
+import {Route, IRoute} from '../lib/framework/routing/Route';
 
-export class Contact extends BaseRoute implements IRoute {
+export class Contact extends Route {
     public contactController: ContactController = new ContactController();
+
     constructor() {
         super();
-        this.init();
-    }
 
-    public init(): void {
-        this.Route.get('/sample', (req, res, next) => {
+        this.router.get('/sample', (req, res, next) => {
             res.json({
                 data: 'test',
                 message: 'Hello from express router'
             });
         });
 
-        this.Route.group({
-            prefix: 'group'
+        this.router.group({
+            prefix: 'group',
+            middleware: ['web']
         }, r => {
             r.get('sample', (req, res, next) => {
                 res.json({
@@ -28,7 +26,7 @@ export class Contact extends BaseRoute implements IRoute {
             });
         });
 
-        this.Route.group({
+        this.router.group({
             prefix: 'contact',
             middleware: 'auth'
         }, (router) => {
@@ -40,4 +38,5 @@ export class Contact extends BaseRoute implements IRoute {
             router.delete(':contactId', this.contactController.deleteContact);
         });
     }
+
 }
