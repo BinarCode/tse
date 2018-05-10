@@ -2,8 +2,10 @@ export class Authenticate {
     constructor () {
     }
 
-    public handle(req, res, next) {
-        console.log('Authenticate middleware - check if is authenticated');
-        next();
+    public encapsulate(args) {
+        return (req, res, next) => {
+            console.log(args, 'Encapsuleted arguments from the route');
+            next();
+        };
     }
 }

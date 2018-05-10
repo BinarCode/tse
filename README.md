@@ -95,6 +95,23 @@ And use it like:
        middleware: ['web']
  }, r => {
 ```
+V. You can send arguments to the middleware functions from the definition:
+```typescript
+ this.router.group({
+            prefix: 'group',
+            middleware: 'auth:admin,user'
+        }, r
+```
+- Now I can get my arguments as an array like: ['admin', 'user'] in the `auth` middleware, BUT,
+there you should implement `encapsulate`, not the `hadle` one:
+```typescript
+    public encapsulate(args) {
+        return (req, res, next) => {
+            console.log(args, 'Encapsuleted arguments from the route');
+            next();
+        };
+    }
+```
 ## Use [express router](https://expressjs.com/en/guide/routing.html) as default
 - In your [route definition](https://github.com/binaryk/node-ts-boilerplate/blob/master/src/routes/Contact.ts) just use it through `this.Route`:
 ```typescript

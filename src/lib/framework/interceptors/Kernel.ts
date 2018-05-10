@@ -29,17 +29,28 @@ export abstract class Kernel {
     abstract initRoutes();
     abstract initGroups();
 
+    protected split(key) {
+        let middleware = key, args = [];
+        if (key.includes(':')) {
+            let splitted = key.split(':');
+            middleware = splitted[0];
+            args = splitted[1].split(',');
+        }
+
+        return {
+            middleware,
+            args
+        };
+    }
     public getMiddleware(key) {
         let middle = [];
 
         if (typeof key === 'string') {
-            check(this.joinsMiddleware, key, `Middleware ${key} is not defined as a route middleware`);
             middle = [...middle, ...this.joinClasses(key)];
         }
 
         if (Array.isArray(key)) {
             key.forEach(k => {
-                check(this.joinsMiddleware, k, `Middleware ${k} is not defined as a route middleware`);
                 middle = [...middle, ...this.joinClasses(k)];
             });
         }
@@ -47,19 +58,26 @@ export abstract class Kernel {
         return middle;
     }
 
+    /**
+     *
+     * @param key 'auth' or 'auth:admin,user'
+     * @returns {Array<Function>}
+     */
     private joinClasses(key): Array<Function> {
         let mdls = [];
-        if (Array.isArray(this.joinsMiddleware[key])) {
-            this.joinsMiddleware[key].forEach(cls => {
+        let splitted = this.split(key);
+        check(this.joinsMiddleware, splitted.middleware, `Middleware ${splitted.middleware} is not defined as middleware`);
+
+        if (Array.isArray(this.joinsMiddleware[splitted.middleware])) {
+            this.joinsMiddleware[splitted.middleware].forEach(cls => {
                 let instance = new cls();
-                mdls.push(instance.handle);
+                mdls.push( instance.encapsulate ? instance.encapsulate(splitted.args) : instance.handle);
             });
         }
-
-        if (typeof this.joinsMiddleware[key] === 'function') {
-            mdls.push((new this.joinsMiddleware[key]).handle);
+        if (typeof this.joinsMiddleware[splitted.middleware] === 'function') {
+            let instance = new this.joinsMiddleware[splitted.middleware];
+            mdls.push(instance.encapsulate ? instance.encapsulate(splitted.args) : instance.handle);
         }
-
         return mdls;
     }
 
