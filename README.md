@@ -47,12 +47,12 @@ you can clone it and start coding
         })
 ```
 ### Add custom middleware
-I. In `/src/http/middleware*` you can add your your file with middleware here.
-Bellow we have an example of a empty middleware:
+I. In `/src/http/middleware*` you can add your file with middleware here.
+Bellow we have an example of an empty middleware:
 ```javascript
     export const auth = (req, res, next) => {
         console.log('auth middle');
-    next();
+    next(); ** DO NOT FORGET TO CALL next()
   };
 ```
 II. Declare it in `middleware.ts`
