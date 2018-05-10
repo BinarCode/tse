@@ -9,12 +9,11 @@ import * as config from './config/env';
 class App {
 
     public app: express.Application;
-    public routes: Routes = new Routes();
+    public router: Routes = new Routes();
 
     constructor() {
         this.app = express();
         this.config();
-        this.routes.routes(this.app);
     }
 
     private config(): void {
@@ -22,6 +21,8 @@ class App {
         this.app.use(bodyParser.json());
         //support application/x-www-form-urlencoded post data
         this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(this.router.getRoutes());
+
     }
 
 }

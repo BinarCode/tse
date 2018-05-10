@@ -12,5 +12,20 @@ you can clone it and start coding
   * Multiple env
   * Basic CRUD
   
- 
- 
+  ## Group routes and define middleware
+   - For CRUD `contact` instance you can use the `group` wrapper
+   - Add prefix and middleware keys to the routes group like this:
+  
+  ```typescript
+        this.Route.group({
+            prefix: 'contact',
+            middleware: 'auth'
+        }, (router) => {
+            router.post('', this.contactController.store);
+            router.get(':contactId', this.contactController.getContactWithID);
+            router.get('', this.contactController.getContacts);
+            router.post('', this.contactController.store);
+            router.put(':contactId', this.contactController.updateContact);
+            router.delete(':contactId', this.contactController.deleteContact);
+        });
+```
