@@ -12,7 +12,19 @@ export class Contact extends BaseRoute implements IRoute {
     public init(): void {
         this.Route.get('/sample', (req, res, next) => {
             res.json({
-                'data': 'test'
+                data: 'test',
+                message: 'Hello from express router'
+            });
+        });
+
+        this.Route.group({
+            prefix: 'group'
+        }, r => {
+            r.get('sample', (req, res, next) => {
+                res.json({
+                    data: 'test',
+                    message: 'Hello from group router'
+                });
             });
         });
 
