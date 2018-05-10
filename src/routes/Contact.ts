@@ -1,4 +1,3 @@
-import { Router, Request, Response } from 'express';
 import { ContactController } from '../controllers/ContactController';
 import { BaseRoute } from './BaseRoute';
 import { IRoute } from './IRoute';
@@ -11,6 +10,12 @@ export class Contact extends BaseRoute implements IRoute {
     }
 
     public init(): void {
+        this.Route.get('/sample', (req, res, next) => {
+            res.json({
+                'data': 'test'
+            });
+        });
+
         this.Route.group({
             prefix: 'contact',
             middleware: 'auth'
