@@ -103,7 +103,7 @@ V. You can send arguments to the middleware functions from the definition:
         }, r
 ```
 - Now I can get my arguments as an array like: ['admin', 'user'] in the `auth` middleware, BUT,
-there you should implement `encapsulate`, not the `hadle` one:
+there you should implement `encapsulate` function, not the `handle` one:
 ```typescript
     public encapsulate(args) {
         return (req, res, next) => {
