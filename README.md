@@ -154,8 +154,6 @@ Feel free to open a PR of issue.
 ## Stay In Touch
 
 - [Twitter](https://twitter.com/LupacescuEuard)
-- [Blog](https://medium.com/the-vue-point)
-- [Job Board](https://vuejobs.com/?ref=vuejs)
 
 ## License
 
