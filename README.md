@@ -1,3 +1,6 @@
+#TSE
+![picture alt](public/docs/pics/logo.png)
+
 # Minimalist express/typescript clean boilerplate
 - This is an [express](https://expressjs.com/) boilerplate based on [TypeScript](https://www.typescriptlang.org/),
 you can clone it and start coding
@@ -144,3 +147,19 @@ export const middleware = {
             });
         });
 ```
+## Questions
+
+The issue list of this repo is **exclusively** for bug reports and feature requests.
+Feel free to open a PR of issue.
+
+## Stay In Touch
+
+- [Twitter](https://twitter.com/LupacescuEuard)
+- [Blog](https://medium.com/the-vue-point)
+- [Job Board](https://vuejobs.com/?ref=vuejs)
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2018-present, Binaryk (Eduard) Lupacescu
