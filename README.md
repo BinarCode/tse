@@ -138,7 +138,7 @@ export const middleware = {
 };
 ```
 ## Use [express router](https://expressjs.com/en/guide/routing.html) as default
-- In your [route definition](https://github.com/binaryk/node-ts-boilerplate/blob/master/src/routes/Contact.ts) just use it through `this.Route`:
+- In your [route definition](https://github.com/binaryk/node-ts-boilerplate/blob/master/src/routes/Contact.ts) just use it through `this.router`:
 ```typescript
  this.router.get('/sample', (req, res, next) => {
             res.json({
