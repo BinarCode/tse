@@ -104,12 +104,12 @@ V. You can send arguments to the middleware functions from the definition:
  this.router.group({
             prefix: 'group',
             middleware: 'auth:admin,user'
-        }, r
+        }, 
 ```
 - Now I can get my arguments as an array like: ['admin', 'user'] in the `auth` middleware, BUT,
-there you should implement `encapsulate` function, not the `handle` one:
+there you should implement `handle` function, which returns an middelware signature 
 ```typescript
-    public encapsulate(args) {
+    public handle(args) {
         return (req, res, next) => {
             console.log(args, 'Encapsuleted arguments from the route');
             next();
