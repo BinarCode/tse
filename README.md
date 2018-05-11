@@ -117,12 +117,17 @@ there you should implement `encapsulate` function, not the `handle` one:
     }
 ```
 ### Add global middlewares
- - In `config/middlewares.ts` we have an array for global middleware definitions, allow format is a class with handle function
+ - In `config/middlewares.ts` we have an object for global middleware definitions, allowed format is a class with an handle function
  or a simple callback function:
  ```typescript
 export const middleware = {
     'body-parser': bodyParser.json(),
-    'url-encoded': bodyParser.urlencoded({ extended: false })
+    'url-encoded': bodyParser.urlencoded({ extended: false }),
+    application: Application,
+    foo: (req, res, next) => {
+        console.log('On the fly declaration');
+        next();
+    }
 };
 ```
 ## Use [express router](https://expressjs.com/en/guide/routing.html) as default

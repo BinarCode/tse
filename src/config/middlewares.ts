@@ -9,7 +9,11 @@ import * as bodyParser from 'body-parser';
 export const middleware = {
     'body-parser': bodyParser.json(),
     'url-encoded': bodyParser.urlencoded({ extended: false }),
-    application: Application
+    application: Application,
+    foo: (req, res, next) => {
+        console.log('On the fly declaration');
+        next();
+    }
 };
 
 /**
