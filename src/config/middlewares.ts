@@ -7,13 +7,18 @@ import * as bodyParser from 'body-parser';
  * These middleware are run during every request to your application.
  */
 export const middleware = {
-    'body-parser': bodyParser.json(),
-    'url-encoded': bodyParser.urlencoded({ extended: false }),
+    bodyParser: [
+        bodyParser.json(),
+        bodyParser.urlencoded({ extended: false })
+    ],
     application: Application,
-    foo: (req, res, next) => {
-        console.log('On the fly declaration');
+    foo: [(req, res, next) => {
+        console.log('First middle');
         next();
-    }
+    }, (req, res, next) => {
+        console.log('Second middle');
+        next();
+    }]
 };
 
 /**

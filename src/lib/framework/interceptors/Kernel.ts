@@ -73,7 +73,7 @@ export abstract class Kernel {
     }
 
     /**
-     * Return properly handle function base
+     * Return properly handle function based on class or simple function
      * @param splitted { middleware: 'auth', args: ['admin', user'] }
      * @param handle function
      */
@@ -107,6 +107,33 @@ export abstract class Kernel {
     }
 
     /**
+     * Function that return an array of handle functions based on:
+     * @param splitted { middleware: 'auth', args: ['admin', user'] }
+     * @param functions [Function | Class (with handle method)...] or Function of Class
+     * @returns {any[]}
+     */
+    public getCompactMiddlewares(splitted, functions) {
+        let mdls = [];
+        /**
+         * Here is in  => if middleware defined in the config is a group with multiple middlewares
+         */
+        if (Array.isArray(functions)) {
+            functions.forEach(cls => {
+                mdls.push(this.checkValidImplementation(splitted, cls));
+            });
+        }
+
+        /**
+         * Here is in => if middleware is a function defined in config
+         */
+        if (typeof functions === 'function') {
+            mdls.push(this.checkValidImplementation(splitted, this.joinsMiddleware[splitted.middleware]));
+        }
+
+        return mdls;
+    }
+
+    /**
      *
      * @param key 'auth' or 'auth:admin,user'
      * @returns {Array<Function>}
@@ -117,20 +144,7 @@ export abstract class Kernel {
         check(this.joinsMiddleware, splitted.middleware, `Middleware ${splitted.middleware} is 
         not defined as middleware in your config/middlewares file`);
 
-        /**
-         * Here is in  => if middleware defined in the config is a group with multiple middlewares
-         */
-        if (Array.isArray(this.joinsMiddleware[splitted.middleware])) {
-            this.joinsMiddleware[splitted.middleware].forEach(cls => {
-                mdls.push(this.checkValidImplementation(splitted, cls));
-            });
-        }
-        /**
-         * Here is in => if middleware is a function defined in config
-         */
-        if (typeof this.joinsMiddleware[splitted.middleware] === 'function') {
-            mdls.push(this.checkValidImplementation(splitted, this.joinsMiddleware[splitted.middleware]));
-        }
+        mdls = [...mdls, this.getCompactMiddlewares(splitted, this.joinsMiddleware[splitted.middleware])];
         return mdls;
     }
 
