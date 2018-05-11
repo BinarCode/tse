@@ -1,4 +1,3 @@
-#TSE
 ![picture alt](public/docs/pics/logo.png)
 
 # Minimalist express/typescript clean boilerplate
