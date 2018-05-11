@@ -47,7 +47,8 @@ you can clone it and start coding
         })
 ```
 ### Add custom middleware
-I. In `/src/http/middleware*` you can add your file with middleware here.
+I. You have two options to define an middleware in config, one is to declare callback function directly and 
+second one, in `/src/http/middleware*` you can add your file with middleware here.
 Bellow we have an example of an empty middleware:
 ```javascript
 export class Authenticate {
@@ -67,7 +68,10 @@ II. Declare it in `src/config/middleware.ts`
 ```typescript
 export const routesMiddleware = {
     auth: Authenticate,
-    session: StartSession
+    session: (req, res, next) => {
+        console.log('Local definition');
+        next();
+    }
 };
 ```
 III. In the `Route` definition, just add the key of the middleware, like this:
@@ -111,6 +115,15 @@ there you should implement `encapsulate` function, not the `handle` one:
             next();
         };
     }
+```
+### Add global middlewares
+ - In `config/middlewares.ts` we have an array for global middleware definitions, allow format is a class with handle function
+ or a simple callback function:
+ ```typescript
+export const middleware = {
+    'body-parser': bodyParser.json(),
+    'url-encoded': bodyParser.urlencoded({ extended: false })
+};
 ```
 ## Use [express router](https://expressjs.com/en/guide/routing.html) as default
 - In your [route definition](https://github.com/binaryk/node-ts-boilerplate/blob/master/src/routes/Contact.ts) just use it through `this.Route`:

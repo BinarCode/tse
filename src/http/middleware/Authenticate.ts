@@ -2,9 +2,9 @@ export class Authenticate {
     constructor () {
     }
 
-    public encapsulate(args) {
+    public handle(args) {
+        console.log(args, 'Encapsuleted arguments from the route');
         return (req, res, next) => {
-            console.log(args, 'Encapsuleted arguments from the route');
             next();
         };
     }

@@ -1,4 +1,7 @@
+import * as isClass from 'is-class';
 import {check} from '../../helpers';
+import {log} from '../../cli/chalk';
+import {Exception} from '../exceptions/Exception';
 
 export abstract class Kernel {
     /**
@@ -29,6 +32,11 @@ export abstract class Kernel {
     abstract initRoutes();
     abstract initGroups();
 
+    /**
+     * Split key passed from the route definition into middleware and arguments
+     * @param key - format 'auth' or 'auth:admin,user'
+     * @returns {{middleware: any; args: any[]}}
+     */
     protected split(key) {
         let middleware = key, args = [];
         if (key.includes(':')) {
@@ -42,6 +50,12 @@ export abstract class Kernel {
             args
         };
     }
+
+    /**
+     *
+     * @param key - format 'auth', 'auth:admin,user', ['auth'] or ['auth:admin,user'...]
+     * @returns {any[]} Array with handle functions
+     */
     public getMiddleware(key) {
         let middle = [];
 
@@ -59,30 +73,86 @@ export abstract class Kernel {
     }
 
     /**
+     * Return properly handle function base
+     * @param splitted { middleware: 'auth', args: ['admin', user'] }
+     * @param handle function
+     */
+    public checkValidImplementation(splitted, cls) {
+        let instance, handle;
+        if (isClass(cls)) {
+            instance = new cls();
+            handle = instance.handle;
+        } else {
+            handle = cls;
+        }
+        if (typeof handle !== 'function') {
+            let msg = `'handle' Function is not defined in ${instance.constructor.name} class`;
+            this.throw(msg);
+        }
+        /**
+         * We are waiting for a closure with callback middleware
+         */
+        if (splitted.args && splitted.args.length > 0) {
+            let cb = handle(splitted.args);
+            if (typeof cb !== 'function') {
+                let msg = `'handle' Function should return an middleware function in ${instance.constructor.name} class, 
+                    please read: https://expressjs.com/en/guide/using-middleware.html#middleware.router`;
+                this.throw(msg);
+            } else {
+                handle = cb;
+            }
+        }
+
+        return handle;
+    }
+
+    /**
      *
      * @param key 'auth' or 'auth:admin,user'
      * @returns {Array<Function>}
      */
-    private joinClasses(key): Array<Function> {
+    public joinClasses(key): Array<Function> {
         let mdls = [];
         let splitted = this.split(key);
-        check(this.joinsMiddleware, splitted.middleware, `Middleware ${splitted.middleware} is not defined as middleware`);
+        check(this.joinsMiddleware, splitted.middleware, `Middleware ${splitted.middleware} is 
+        not defined as middleware in your config/middlewares file`);
 
+        /**
+         * Here is in  => if middleware defined in the config is a group with multiple middlewares
+         */
         if (Array.isArray(this.joinsMiddleware[splitted.middleware])) {
             this.joinsMiddleware[splitted.middleware].forEach(cls => {
-                let instance = new cls();
-                mdls.push( instance.encapsulate ? instance.encapsulate(splitted.args) : instance.handle);
+                mdls.push(this.checkValidImplementation(splitted, cls));
             });
         }
+        /**
+         * Here is in => if middleware is a function defined in config
+         */
         if (typeof this.joinsMiddleware[splitted.middleware] === 'function') {
-            let instance = new this.joinsMiddleware[splitted.middleware];
-            mdls.push(instance.encapsulate ? instance.encapsulate(splitted.args) : instance.handle);
+            mdls.push(this.checkValidImplementation(splitted, this.joinsMiddleware[splitted.middleware]));
         }
         return mdls;
     }
 
+    /**
+     * Join all middlewares defined in the config file,
+     * if the same middleware is present in multiple object, the last one will be implemented
+     */
     private join() {
         this.joinsMiddleware = { ...this.middleware, ...this.routesMiddleware, ...this.groupsMiddleware };
+    }
+
+    /**
+     *
+     * @param msg
+     */
+    private throw(msg) {
+        log.error(msg);
+        throw new Exception(msg);
+    }
+
+    get getGlobalMiddleware() {
+        return this.middleware;
     }
 
 }

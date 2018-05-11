@@ -1,10 +1,16 @@
 import {Authenticate} from '../http/middleware/Authenticate';
 import {StartSession} from '../http/middleware/StartSession';
+import {Application} from '../http/middleware/Application';
+import * as bodyParser from 'body-parser';
 /**
  * The application's global HTTP middleware stack.
  * These middleware are run during every request to your application.
  */
-export const middleware = {};
+export const middleware = {
+    'body-parser': bodyParser.json(),
+    'url-encoded': bodyParser.urlencoded({ extended: false }),
+    application: Application
+};
 
 /**
  * The application's route middleware.
@@ -12,7 +18,10 @@ export const middleware = {};
  */
 export const routesMiddleware = {
     auth: Authenticate,
-    session: StartSession
+    session: (req, res, next) => {
+        console.log('Local definition');
+        next();
+    }
 };
 
 /**

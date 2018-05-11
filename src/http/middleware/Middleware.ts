@@ -16,7 +16,6 @@ export class Middleware extends Kernel {
     initGroups() {
         this.groupsMiddleware = groupsMiddleware;
     }
-
 }
 
 export default new Middleware();

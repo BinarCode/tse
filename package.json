@@ -26,12 +26,14 @@
     "body-parser": "^1.18.2",
     "debug": "^3.1.0",
     "express": "^4.16.3",
+    "is-class": "^0.0.4",
     "lodash": "^4.17.10",
     "mongoose": "^5.0.17",
     "morgan": "^1.9.0",
     "nodemon": "^1.17.4"
   },
   "devDependencies": {
+    "chalk": "^2.4.1",
     "path": "^0.12.7",
     "ts-node": "^6.0.3",
     "tsconfig-lint": "^0.12.0",

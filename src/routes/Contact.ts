@@ -16,7 +16,7 @@ export class Contact extends Route {
 
         this.router.group({
             prefix: 'group',
-            middleware: 'auth:admin,user'
+            middleware: ['auth:admin,user', 'session']
         }, r => {
             r.get('sample', (req, res, next) => {
                 res.json({
