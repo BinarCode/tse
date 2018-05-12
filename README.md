@@ -167,8 +167,10 @@ there you should implement `handle` function, which returns an middelware signat
     }
 ```
 ### Add global middlewares
- - In `config/middlewares.ts` we have an object for global middleware definitions, allowed format is a class with an handle function
- or a simple callback function:
+ - In `config/middlewares.ts` we have an object for global middleware definitions, allowed format are:
+  1. Class with an handle function
+  2. Simple callback function
+  3. Array of callback functions
  ```typescript
 export const middleware = {
     bodyParser: [
