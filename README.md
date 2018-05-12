@@ -36,7 +36,7 @@ you can clone it and start coding
    - `config/database.ts` is the configuration file for the database - Default mongo arguments are stored there
    ### Core
    - You can leave the black box of the core to configure your application, based on your defined routes and middlewares from the
-   `config/middlewares.ts - middleware object`, or, you can do this mannualy in the `app.ts`:
+   `config/middlewares.ts - middleware object`, or, you can do this manually in the `app.ts`:
   ```typescript
         this.core = new Core(this.app, {
             /**
