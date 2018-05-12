@@ -52,7 +52,7 @@ you can clone it and start coding
 
   ## Standard Response object
   - API has a customizable [monkey patching](https://en.wikipedia.org/wiki/Monkey_patch), which extends the default `res` express object
-  with a new function `respond`. This is usefull to have a `Standard API Response` with the format: 
+  with a new function `respond`. This is useful to have a `Standard API Response` with the format: 
   ```typescript
             data: data,
             message: message,
