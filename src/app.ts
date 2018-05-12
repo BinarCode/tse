@@ -10,7 +10,17 @@ class App {
 
     constructor() {
         this.app = express();
-        this.core = new Core(this.app);
+        this.core = new Core(this.app, {
+            /**
+             * Activate global middlewares from the `config/middeware.ts`
+             */
+            globalMiddleware: true
+        });
+        // this.core.use(bodyParser.json());
+        // this.core.use(/* other middleware function */)
+        /*!important, init routes*/
+        // this.core.initRoutes();
+
     }
 }
 

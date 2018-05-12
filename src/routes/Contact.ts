@@ -1,5 +1,5 @@
 import {ContactController} from '../controllers/ContactController';
-import {Route, IRoute} from '../lib/framework/routing/Route';
+import {Route} from '../lib/framework/routing/Route';
 
 export class Contact extends Route {
     public contactController: ContactController = new ContactController();
@@ -16,19 +16,17 @@ export class Contact extends Route {
 
         this.router.group({
             prefix: 'group',
-            middleware: ['auth:admin,user', 'session']
+            middleware: ['auth:admin', 'session']
         }, r => {
             r.get('sample', (req, res, next) => {
-                res.json({
-                    data: 'test',
-                    message: 'Hello from group router'
-                });
+                res.respond({
+                    foo: 'Standard data from API',
+                }, `Standard message from API`, 201 );
             });
         });
 
         this.router.group({
-            prefix: 'contact',
-            middleware: 'auth'
+            prefix: 'contact'
         }, (router) => {
             router.post('', this.contactController.store);
             router.get(':contactId', this.contactController.getContactWithID);

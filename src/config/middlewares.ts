@@ -9,7 +9,7 @@ import * as bodyParser from 'body-parser';
 export const middleware = {
     bodyParser: [
         bodyParser.json(),
-        bodyParser.urlencoded({ extended: false })
+        bodyParser.urlencoded({ extended: false }),
     ],
     application: Application,
     foo: [(req, res, next) => {

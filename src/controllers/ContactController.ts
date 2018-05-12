@@ -1,8 +1,7 @@
 import * as mongoose from 'mongoose';
 import { Controller } from './Controller';
 import { ContactSchema } from '../models/ContactSchema';
-import { Request, Response } from 'express';
-
+import { Request, Response } from '../lib/framework/application/http';
 const Contact = mongoose.model('Contact', ContactSchema);
 export class ContactController extends Controller {
     public getContacts (req: Request, res: Response) {
@@ -15,7 +14,6 @@ export class ContactController extends Controller {
     }
 
     public store(req: Request, res: Response) {
-        console.log(req.body, 'body');
         Contact.create(req.body, (err, contact) => {
             if (err) {
                 res.send(err);

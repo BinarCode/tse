@@ -31,9 +31,48 @@ you can clone it and start coding
   9. Add your own models in `src/models`
   10. Enjoy development
    
+   ## Config
+   ### Database
+   - `config/database.ts` is the configuration file for the database - Default mongo arguments are stored there
+   ### Core
+   - You can leave the black box of the core to configure your application, based on your defined routes and middlewares from the
+   `config/middlewares.ts - middleware object`, or, you can do this mannualy in the `app.ts`:
+  ```typescript
+        this.core = new Core(this.app, {
+            /**
+             * Activate global middlewares from the `config/middeware.ts`
+             */
+            globalMiddleware: false
+        });
+        this.core.use(bodyParser.json());
+        // this.core.use(/* other middleware function */)
+        /*!important, init routes*/
+        this.core.initRoutes();
+``` 
+
+  ## Standard Response object
+  - API has a customizable [monkey patching](https://en.wikipedia.org/wiki/Monkey_patch), which extends the default `res` express object
+  with a new function `respond`. This is usefull to have a `Standard API Response` with the format: 
+  ```typescript
+            data: data,
+            message: message,
+            responseCode: responseCode
+```
+- To use this standard it's enough to write:
+```typescript
+        this.router.get('sample', (req, res, next) => {
+            res.respond({
+                foo: 'Standard data from API',
+            }, `Standard message from API`, 201 )
+        });
+```
+- Response from the server: 
+![picture alt](public/docs/pics/standard-api.png)
+
   ## Group routes and define middleware
    - For CRUD `contact` instance you can use the `group` wrapper
    - Add prefix with middleware keys to the routes group like this:
+   
   
 ```javascript
         this.Route.group({

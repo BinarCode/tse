@@ -3,8 +3,7 @@ export class Authenticate {
     }
 
     public handle(args) {
-        console.log(args, 'Encapsuleted arguments from the route');
-        return (req, res, next) => {
+        return (req, x, next) => {
             next();
         };
     }

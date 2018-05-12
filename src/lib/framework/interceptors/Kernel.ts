@@ -72,6 +72,15 @@ export abstract class Kernel {
         return middle;
     }
 
+    public checkValidSignatureMiddleware(fn, mdl) {
+        let indexStartArguments = fn.toString().indexOf('(');
+        let indexStopArguments = fn.toString().indexOf(')');
+        let str = fn.toString().substring(indexStartArguments + 1, indexStopArguments);
+        if (str.split(',').length !== 3) {
+            this.throw(`Function passed as middleware for "${mdl}" not correspond with middleware signature.`);
+        }
+    }
+
     /**
      * Return properly handle function based on class or simple function
      * @param splitted { middleware: 'auth', args: ['admin', user'] }
@@ -83,6 +92,7 @@ export abstract class Kernel {
             instance = new cls();
             handle = instance.handle;
         } else {
+            this.checkValidSignatureMiddleware(cls, splitted.middleware);
             handle = cls;
         }
         if (typeof handle !== 'function') {
@@ -94,10 +104,12 @@ export abstract class Kernel {
          */
         if (splitted.args && splitted.args.length > 0) {
             let cb = handle(splitted.args);
+            this.checkValidSignatureMiddleware(cb, splitted.middleware);
             if (typeof cb !== 'function') {
                 let msg = `'handle' Function should return an middleware function in ${instance.constructor.name} class, 
-                    please read: https://expressjs.com/en/guide/using-middleware.html#middleware.router`;
+                please read: https://expressjs.com/en/guide/using-middleware.html#middleware.router`;
                 this.throw(msg);
+                // log.error(msg);
             } else {
                 handle = cb;
             }
@@ -139,6 +151,7 @@ export abstract class Kernel {
      * @returns {Array<Function>}
      */
     public joinClasses(key): Array<Function> {
+        if (key === '') return [];
         let mdls = [];
         let splitted = this.split(key);
         check(this.joinsMiddleware, splitted.middleware, `Middleware ${splitted.middleware} is 
