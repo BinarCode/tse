@@ -93,12 +93,12 @@ you can clone it and start coding
 I. You have two options to define a middleware: 
 - to declare callback function directly:
 ```typescript
-    foo: [(req, res, next) => {
+    foo: (req, res, next) => {
         console.log('First middle');
         next();
     },
 ```
-- in `/src/http/middleware*` you can add your file with middleware here.
+- Add your file with middleware in `/src/http/middleware*` 
 - Bellow we have an example of an empty middleware:
 ```javascript
 export class Authenticate {
