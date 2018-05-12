@@ -14,6 +14,8 @@ you can clone it and start coding
   * [Mongoose](http://mongoosejs.com/) ORM
   * [MongoDB](https://mongodb.com/) connection
   * Multiple env
+   * Standard API response
+   * Middleware configurations
   * Basic CRUD
   
   ## How to start?
@@ -75,9 +77,9 @@ you can clone it and start coding
    
   
 ```javascript
-        this.Route.group({
+        this.router.group({
             prefix: 'contact',
-            middleware: 'auth'
+            middleware: ['session', 'auth:admin']
         }, (router) => {
             router.post('', this.contactController.store);
             router.get(':contactId', this.contactController.getContactWithID);
@@ -88,9 +90,16 @@ you can clone it and start coding
         })
 ```
 ### Add custom middleware
-I. You have two options to define an middleware in config, one is to declare callback function directly and 
-second one, in `/src/http/middleware*` you can add your file with middleware here.
-Bellow we have an example of an empty middleware:
+I. You have two options to define a middleware: 
+- to declare callback function directly:
+```typescript
+    foo: [(req, res, next) => {
+        console.log('First middle');
+        next();
+    },
+```
+- in `/src/http/middleware*` you can add your file with middleware here.
+- Bellow we have an example of an empty middleware:
 ```javascript
 export class Authenticate {
     constructor () {
@@ -121,11 +130,11 @@ III. In the `Route` definition, just add the key of the middleware, like this:
             middleware: 'auth'
         }, (router) => {
 ```
-Or you can use an array of middlewares: 
+Array of middlewares: 
 ```typescript
 middleware: ['auth', 'session']
 ```
-IV. Also you can define these two middlewares in a middleware group:
+IV. Define these two middlewares in a middleware group:
 ``` 
 export const groupsMiddleware = {
     web: [
@@ -137,10 +146,10 @@ export const groupsMiddleware = {
 And use it like: 
 ``` this.router.group({
        prefix: 'group',
-       middleware: ['web']
+       middleware: 'web'
  }, r => {
 ```
-V. You can send arguments to the middleware functions from the definition:
+V. Send arguments to the middleware functions from the definition:
 ```typescript
  this.router.group({
             prefix: 'group',
