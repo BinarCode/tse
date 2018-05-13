@@ -1,9 +1,10 @@
 ![picture alt](public/docs/pics/logo.png)
-
+ 
 # Minimalist express/typescript clean boilerplate
 - This is an [express](https://expressjs.com/) boilerplate based on [TypeScript](https://www.typescriptlang.org/),
 you can clone it and start coding
 - Cover [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) principles
+- Please read [Official Documentation](https://tsejs.github.io/tse/).
 ## What this includes? 
   * TypeScript compiler
   * [Express](https://expressjs.com/)
