@@ -4,7 +4,7 @@
 - This is an [express](https://expressjs.com/) boilerplate based on [TypeScript](https://www.typescriptlang.org/),
 you can clone it and start coding
 - Cover [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) principles
-- Please read [Official Documentation](https://tsejs.github.io/tse/).
+- Please read [Official Documentation](https://tsejs.github.io/tse/).a
 ## What this includes? 
   * TypeScript compiler
   * [Express](https://expressjs.com/)
