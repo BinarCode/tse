@@ -1,8 +1,11 @@
 import * as express from 'express';
+import {noop} from 'lodash';
+import connect from '../../mongoose/connect';
 import {log} from '../../cli/chalk';
 import Middleware from '../../../http/middleware/Middleware';
 import { Routes } from '../../../routes/routes';
 import {Response} from './http/Response';
+import {config} from '../../../config/index';
 
 export class Core {
     public app: express.Application;
@@ -54,6 +57,18 @@ export class Core {
         });
     }
 
+    public use(middleware) {
+        this.app.use(middleware);
+    }
+
+    public listen() {
+        this.app.listen(config.default.PORT, noop);
+    }
+
+    public dbConnect() {
+        connect.connect(config.default);
+    }
+
     public init() {
         if (this.config.globalMiddleware) {
             this.applyGlobalMiddleware();
@@ -62,10 +77,8 @@ export class Core {
         if (this.config.globalMiddleware) {
             this.initRoutes();
         }
+        this.listen();
+        this.dbConnect();
         log.success(`Core initialized.`);
-    }
-
-    public use(middleware) {
-        this.app.use(middleware);
     }
 }

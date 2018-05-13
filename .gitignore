@@ -7,3 +7,4 @@ dist
 yarn.lock
 yarn-error.log
 .idea
+deploy.sh

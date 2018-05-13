@@ -1,5 +1,10 @@
-import * as path from 'path';
-export const config = require(path.format({
-    dir: __dirname,
-    name: process.env.NODE_ENV || 'dev',
-    ext: '.ts'}));
+export default {
+    'DB_CONNECTION': 'mongo',
+    'DB_HOST': 'localhost',
+    'DB_PORT': '27017',
+    'DB_DATABASE': 'node-ts',
+    'DB_USERNAME': '',
+    'DB_PASSWORD': '',
+    'DB_OPTIONS': {},
+    'PORT': 3000
+};

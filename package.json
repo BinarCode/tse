@@ -6,11 +6,13 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist node_modules",
-    "start": "nodemon ./dist/server.js",
-    "watch": "NODE_ENV=dev nodemon --ext ts --watch src --exec './node_modules/.bin/ts-node' ./src/server.ts",
-    "dev": "ts-node ./src/server.ts",
+    "start": "nodemon ./dist/app.js",
+    "watch": "NODE_ENV=dev nodemon --ext ts --watch src --exec './node_modules/.bin/ts-node' ./src/app.ts",
+    "dev": "ts-node ./src/app.ts",
     "lint": "tsconfig-lint",
-    "prod": "npm run build && npm start"
+    "prod": "npm run build && npm start",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "keywords": [
     "express",
@@ -37,6 +39,7 @@
     "path": "^0.12.7",
     "ts-node": "^6.0.3",
     "tsconfig-lint": "^0.12.0",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "vuepress": "^0.8.4"
   }
 }
