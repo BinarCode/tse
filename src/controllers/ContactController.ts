@@ -49,3 +49,5 @@ export class ContactController extends Controller {
         });
     }
 }
+
+export default new ContactController();

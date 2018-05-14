@@ -37,6 +37,7 @@
   "devDependencies": {
     "chalk": "^2.4.1",
     "path": "^0.12.7",
+    "require-all": "^2.2.0",
     "ts-node": "^6.0.3",
     "tsconfig-lint": "^0.12.0",
     "typescript": "^2.8.3",

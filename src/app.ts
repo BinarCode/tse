@@ -1,5 +1,11 @@
 import * as express from 'express';
 import {Core} from './lib/framework/application/Core';
+/*var controllers = require('require-all')({
+    dirname     :  __dirname + '/routes',
+    filter      :  /(.+)\.ts$/,
+    recursive   : true
+});*/
+
 /**
  * Arhitecture based on this article:
  * https://itnext.io/building-restful-web-apis-with-node-js-express-mongodb-and-typescript-part-1-2-195bdaf129cf

@@ -3,13 +3,16 @@ import {noop} from 'lodash';
 import connect from '../../mongoose/connect';
 import {log} from '../../cli/chalk';
 import Middleware from '../../../http/middleware/Middleware';
-import { Routes } from '../../../routes/routes';
 import {Response} from './http/Response';
 import {config} from '../../../config/index';
-
+require('require-all')({
+    dirname     :  __dirname + '/../../../routes/',
+    filter      :  /(.+)\.ts$/,
+    recursive   : true
+});
+import {router} from '../../Facades';
 export class Core {
     public app: express.Application;
-    public router: Routes = new Routes();
     protected state;
 
     public config = {
@@ -43,7 +46,7 @@ export class Core {
 
     public initRoutes() {
         if (this.config.globalMiddleware === false || this.state.globalMiddlewareInitiated) {
-            this.app.use(this.router.getRoutes());
+            this.app.use(router);
             log.success(`Routes initialized.`);
         } else {
             log.warning(`${this.constructor.name}.ts: Routes are not initialized because the global middleware was not initiated yet.`);
