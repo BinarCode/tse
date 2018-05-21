@@ -1,10 +1,11 @@
 import * as express from 'express';
 import {noop} from 'lodash';
+import {warn, success} from 'tse-shared-utils';
 import connect from '../../mongoose/connect';
-import {log} from '../../cli/chalk';
 import Middleware from '../../../http/middleware/Middleware';
 import {Response} from './http/Response';
 import {config} from '../../../config/index';
+
 require('require-all')({
     dirname     :  __dirname + '/../../../routes/',
     filter      :  /(.+)\.ts$/,
@@ -40,16 +41,16 @@ export class Core {
         }
 
         this.app.use(handles);
-        log.success(`Gloabal middleware are configured.`);
+        success(`Global middleware are configured.`);
         this.state.globalMiddlewareInitiated = true;
     }
 
     public initRoutes() {
         if (this.config.globalMiddleware === false || this.state.globalMiddlewareInitiated) {
             this.app.use(router);
-            log.success(`Routes initialized.`);
+            success(`Routes initialized.`);
         } else {
-            log.warning(`${this.constructor.name}.ts: Routes are not initialized because the global middleware was not initiated yet.`);
+            warn(`${this.constructor.name}.ts: Routes are not initialized because the global middleware was not initiated yet.`);
         }
     }
 
@@ -82,6 +83,6 @@ export class Core {
         }
         this.listen();
         this.dbConnect();
-        log.success(`Core initialized.`);
+        success(`Core initialized.`);
     }
 }

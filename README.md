@@ -1,6 +1,6 @@
 ![picture alt](public/docs/pics/logo.png)
  
-# Minimalist express/typescript clean boilerplate
+# Minimalist express/typescript clean boilerplate - inspired from [Laravel framework](https://laravel.com/)
 - This is an [express](https://expressjs.com/) boilerplate based on [TypeScript](https://www.typescriptlang.org/),
 you can clone it and start coding
 - Cover [SOLID](https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)) principles
@@ -201,6 +201,9 @@ export const middleware = {
 
 The issue list of this repo is **exclusively** for bug reports and feature requests.
 Feel free to open a PR of issue.
+
+##Colaborators
+- Props to [Dale Guyen](http://dalenguyen.me/) for [this](https://itnext.io/building-restful-web-apis-with-node-js-express-mongodb-and-typescript-part-1-2-195bdaf129cf) article, this project was started based on it arhitecture
 
 ## Stay In Touch
 
