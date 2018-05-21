@@ -202,7 +202,7 @@ export const middleware = {
 The issue list of this repo is **exclusively** for bug reports and feature requests.
 Feel free to open a PR of issue.
 
-##Colaborators
+## Colaborators
 - Props to [Dale Guyen](http://dalenguyen.me/) for [this](https://itnext.io/building-restful-web-apis-with-node-js-express-mongodb-and-typescript-part-1-2-195bdaf129cf) article, this project was started based on it arhitecture
 
 ## Stay In Touch
