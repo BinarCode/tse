@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
-import { Controller } from './Controller';
+import {Request, Response} from 'express-serve-static-core'
 import { ContactSchema } from '../models/ContactSchema';
-import { Request, Response } from '../lib/framework/application/http';
+import { Controller } from './Controller';
 const Contact = mongoose.model('Contact', ContactSchema);
 export class ContactController extends Controller {
     public getContacts (req: Request, res: Response) {

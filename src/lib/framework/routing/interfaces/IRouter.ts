@@ -1,5 +1,9 @@
-import {Router} from 'express-serve-static-core';
+import {Router, IRouter as CoreIRouter} from 'express-serve-static-core';
 
-export interface IRouter extends Router {
-    group?: Function;
+interface GroupConfig {
+    prefix?: string;
+    middleware?: any
+}
+export interface IRouter extends Router{
+    group?(config: GroupConfig, callback: Function): any;
 };
