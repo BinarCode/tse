@@ -10,7 +10,10 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "outDir": "./dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "lib": ["es6"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src/**/*.ts"

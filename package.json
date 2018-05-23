@@ -28,11 +28,13 @@
     "body-parser": "^1.18.2",
     "debug": "^3.1.0",
     "express": "^4.16.3",
+    "inversify": "^4.13.0",
     "is-class": "^0.0.4",
     "lodash": "^4.17.10",
     "mongoose": "^5.0.17",
     "morgan": "^1.9.0",
     "nodemon": "^1.17.4",
+    "reflect-metadata": "^0.1.12",
     "tse-shared-utils": "^0.0.1-beta.3"
   },
   "devDependencies": {

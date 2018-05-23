@@ -8,10 +8,12 @@ import Middleware from '../../../http/middleware/Middleware';
 import {Response} from './http/Response';
 import {config} from '../../../config/index';
 import {router} from '../../Facades';
+import {ServiceProvider} from '../../../providers/ServiceProvider';
 export class Core {
     public app: express.Application;
     public srcDir: string;
     protected state;
+    protected serviceProvider;
 
     public config = {
         globalMiddleware: true,
@@ -25,6 +27,8 @@ export class Core {
             globalMiddlewareInitiated: false
         };
         this.config = {...this.config, ...config};
+
+        this.serviceProvider = new ServiceProvider();
         this.init();
     }
 
@@ -95,6 +99,7 @@ export class Core {
         }
         this.listen();
         this.dbConnect();
+
         success(`Core initialized.`);
     }
 }
