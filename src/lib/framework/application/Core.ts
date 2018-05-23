@@ -7,14 +7,10 @@ import connect from '../../mongoose/connect';
 import Middleware from '../../../http/middleware/Middleware';
 import {Response} from './http/Response';
 import {config} from '../../../config/index';
-require('require-all')({
-    dirname     : path.resolve(process.cwd(), 'src', 'routes'),
-    filter      :  /(.+)\.ts$/,
-    recursive   : true
-});
 import {router} from '../../Facades';
 export class Core {
     public app: express.Application;
+    public srcDir: string;
     protected state;
 
     public config = {
@@ -24,6 +20,7 @@ export class Core {
 
     constructor(app, config = {}) {
         this.app = app;
+        this.srcDir = path.resolve(process.cwd(), 'src');
         this.state = {
             globalMiddlewareInitiated: false
         };
@@ -46,8 +43,17 @@ export class Core {
         this.state.globalMiddlewareInitiated = true;
     }
 
-    public initRoutes() {
+    public async requireRoutes() {
+        require('require-all')({
+            dirname     : path.resolve(this.srcDir, 'routes'),
+            filter      :  /(.+)\.ts$/,
+            recursive   : true
+        });
+    }
+
+    public async initRoutes() {
         if (this.config.globalMiddleware === false || this.state.globalMiddlewareInitiated) {
+            await this.requireRoutes();
             this.app.use(router);
             success(`Routes initialized.`);
         } else {
