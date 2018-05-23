@@ -197,6 +197,16 @@ export const middleware = {
             });
         });
 ```
+
+## Exceptions
+- Framework will expose the class `Exception` for error handling and HttpErrors catch:
+```typescript
+router.get('/funny-page', (req, res, next) => {
+    throw new Exception('not-implemented', 501, {
+        data: 'foo'
+    });
+})
+```
 ## Questions
 
 The issue list of this repo is **exclusively** for bug reports and feature requests.

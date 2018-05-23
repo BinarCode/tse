@@ -3,7 +3,6 @@ import {extend, noop} from 'lodash';
 import {PathParams, RequestHandlerParams} from 'express-serve-static-core';
 import Middleware from '../../../http/middleware/Middleware';
 import {IRouter} from './interfaces/IRouter';
-
 let router: IRouter = ExpressRouter();
 
 const sanitizePath = (base: string, userPath: string): PathParams  => {

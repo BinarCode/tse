@@ -1,13 +1,14 @@
 import * as express from 'express';
 import {noop} from 'lodash';
 import {warn, success} from 'tse-shared-utils';
+import * as path from 'path';
+import {Glob} from './Glob';
 import connect from '../../mongoose/connect';
 import Middleware from '../../../http/middleware/Middleware';
 import {Response} from './http/Response';
 import {config} from '../../../config/index';
-
 require('require-all')({
-    dirname     :  __dirname + '/../../../routes/',
+    dirname     : path.resolve(process.cwd(), 'src', 'routes'),
     filter      :  /(.+)\.ts$/,
     recursive   : true
 });
@@ -71,6 +72,11 @@ export class Core {
 
     public dbConnect() {
         connect.connect(config.default);
+    }
+
+    public exposeGlobal() {
+        const glob = new Glob();
+        glob.set();
     }
 
     public init() {
