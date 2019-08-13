@@ -1,0 +1,55 @@
+{
+    "addons": ["heroku-postgresql", "heroku-redis"],
+    "buildpacks": [
+        {
+            "url": "heroku/nodejs"
+        }
+    ],
+    "env": {
+        "NODE_ENV": {
+            "required": true
+        },
+        "DATABASE_URL": {
+            "required": false
+        },
+        "JWT_SECRET": "1",
+        "MAIL_HOST": {
+            "required": true
+        },
+        "MAIL_PORT": {
+            "required": true
+        },
+        "MAIL_USERNAME": {
+            "required": true
+        },
+        "MAIL_PASSWORD": {
+            "required": true
+        },
+        "MAIL_FROM_ADDRESS": {
+            "required": true
+        },
+        "MAIL_FROM_NAME": {
+            "required": true
+        },
+        "STRIPE_SECRET": {
+            "required": true
+        },
+        "STRIPE_WEBHOOK_SECRET": {
+            "required": true
+        },
+        "GOOGLE_RECAPTCHA_APP_KEY": {
+            "required": true
+        },
+        "GOOGLE_RECAPTCHA_APP_SECRET": {
+            "required": true
+        }
+    },
+    "formation": {
+        "web": {
+            "quantity": 1
+        }
+    },
+    "name": "starter",
+    "scripts": {},
+    "stack": "heroku-18"
+}

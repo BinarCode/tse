@@ -1,0 +1,15 @@
+mjml
+  mj-head
+    mj-style(inline='inline')
+      | .social-img + .social-img { margin-left: 5px;}
+  mj-body(background-color='#f7f7f7')
+    mj-section
+      mj-column
+        mj-image(width='100px', src=`${appUrl}/assets/images/logo.png`)
+    block content
+    mj-section
+      mj-column
+        mj-text(align='center')
+        mj-divider(border-color='#cccccc', border-width='0.5px', padding='0')
+        mj-text(color='#666666', font-size='11px', line-height='23px', font-family='Helvetica', letter-spacing='0.22px', align='center')
+        block afterFooter

@@ -1,65 +1,29 @@
-{ "rules": {
-    "class-name": true,
-    "indent": [
-      true,
-      "spaces"
-    ],
-    "max-line-length": [
-      true,
-      150
-    ],
-    "member-ordering": [
-      true,
-      "public-before-private",
-      "static-before-instance",
-      "variables-before-functions"
-    ],
-    "no-consecutive-blank-lines": true,
-    "no-duplicate-variable": true,
-    "no-eval": true,
-    "no-internal-module": true,
-    "no-trailing-whitespace": true,
-    "no-var-keyword": false,
-    "one-line": [
-      true,
-      "check-open-brace",
-      "check-catch",
-      "check-else",
-      "check-whitespace"
-    ],
-    "quotemark": [
-      true,
-      "single"
-    ],
-    "semicolon": [
-      true,
-      "always"
-    ],
-    "triple-equals": [
-      true,
-      "allow-null-check"
-    ],
-    "typedef-whitespace": [
-      true,
-      {
-        "call-signature": "nospace",
-        "index-signature": "nospace",
-        "parameter": "nospace",
-        "property-declaration": "nospace",
-        "variable-declaration": "nospace"
-      }
-    ],
-    "variable-name": [
-      true,
-      "ban-keywords"
-    ],
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ]
-  }
+{
+    "extends": ["tslint-config-airbnb", "tslint-config-prettier"],
+    "rules": {
+        "eofline": true,
+        "import-name": false,
+        "no-consecutive-blank-lines": true,
+        "no-console": true,
+        "no-irregular-whitespace": true,
+        "no-trailing-whitespace": true,
+        "ordered-imports": [
+            true,
+            {
+                "grouped-imports": true
+            }
+        ],
+        "prefer-array-literal": false,
+        "strict-boolean-expressions": false,
+        "ter-arrow-parens": [true, "always"],
+        "quotemark": [true, "single"],
+        "variable-name": [
+            true,
+            "allow-leading-underscore",
+            "allow-pascal-case",
+            "ban-keywords",
+            "check-format"
+        ],
+        "one-variable-per-declaration": false
+    }
 }
